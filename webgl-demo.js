@@ -10,11 +10,11 @@ function initShaderProgram(gl, vsSource, fsSource) {
   // create shader program
   const shaderProgram = gl.createProgram();
   gl.attachShader(shaderProgram, vertexShader);
-  gl.attachShader(shaderProgram.fragmentShader);
+  gl.attachShader(shaderProgram, fragmentShader);
   gl.linkProgram(shaderProgram);
 
   // check failed and alert
-  if ((!gl.getProgramParameter(shaderProgram), gl.LINK_STATUS)) {
+  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
     alert(
       `Unable to initialize the shader program: ${gl.getProgramInfoLog(
         shaderProgram
@@ -41,39 +41,39 @@ function loadShader(gl, type, source) {
 }
 
 function main() {
+  // vertex shader program
+  const vsSource = `
+    attribute vec4 aVertexPosition;
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+    void main() {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    }
+  `;
+
+  // fragment shader program
+  const fsSource = `
+    void main() {
+      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+  `;
+
   const canvas = document.querySelector("#gl-canvas");
 
-  //innitialize the Gl context
+  // initialize the GL context
   const gl = canvas.getContext("webgl");
 
   if (gl === null) {
     alert(
-      "Unable to innitailize webGl. your browser or machine may not support it"
+      "Unable to initialize WebGL. Your browser or machine may not support it"
     );
     return;
   }
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  //initshaderProgram
+  // init shader program
   const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-
-  // vertex shader program
-  const vsSource = `
-    attribute vec4 aVertexPosition;
-    uniform mat4 uModelViewMatrix;
-    uniform mat4 uProjectMatrix;
-    void main(){
-      gl_Position = uProjectMatrix * uModelViewMatrix * aVertexPosition;
-      }
-      `;
-
-  // fragment shader program
-  const fsSource = `
-    void main(){
-      gl_FragColor = vec4(1.0,1.0,1.0,1.0)
-    }
-  `;
 
   const programInfo = {
     program: shaderProgram,
@@ -90,6 +90,5 @@ function main() {
   };
 
   const buffers = initBuffers(gl);
-  drawScene(gl,programInfo,buffers);
-
+  drawScene(gl, programInfo, buffers);
 }

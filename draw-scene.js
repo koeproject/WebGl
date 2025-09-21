@@ -6,11 +6,13 @@ function drawScene(gl, programInfo, buffers) {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   const fieldOfView = (45 * Math.PI) / 180;
-  const aspect = gl.canvas.clientWidth / gl.canvas.clientHight;
+  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   const zNear = 0.1;
   const zFar = 100.0;
 
   const projectionMatrix = mat4.create();
+  mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
+  const modelViewMatrix = mat4.create();
   mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
 
   setPositionAttribute(gl, buffers, programInfo);
@@ -39,16 +41,16 @@ function setPositionAttribute(gl, buffers, programInfo) {
   const stride = 0;
   const offset = 0;
 
-  gl.bindBuffer(ARRAY_BUFFER, buffers.position);
-  gl.vertexAttributePointer(
-    programInfo.attributeLocations.vertextPosition,
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertextPosition,
     numComponents,
     type,
     normalize,
     stride,
     offset
   );
-  gl.enableVertexAttribArray(programInfo.attributeLocations.vertextPosition);
+  gl.enableVertexAttribArray(programInfo.attribLocation.vertexPosition);
 }
 
 export { drawScene };
