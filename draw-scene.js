@@ -40,6 +40,7 @@ function drawScene(gl, programInfo, buffers) {
 function setPositionAttribute(gl, buffers, programInfo) {
   const numComponents = 2;
   const type = gl.FLOAT;
+  const normalize = false;
   const stride = 0;
   const offset = 0;
 
@@ -52,7 +53,7 @@ function setPositionAttribute(gl, buffers, programInfo) {
     stride,
     offset
   );
-  gl.enableVertexAttribArray(programInfo.attribLocation.vertexPosition);
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 }
 
 function setColorAttribute(gl, buffers, programInfo) {
