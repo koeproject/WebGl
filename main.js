@@ -1,10 +1,10 @@
-import { BlockSphere } from "./src/blochSphere";
+import { BlochSphere } from "./src/blochSphere.js"
 
-const canvas = document.getElementById('renderer')
-const sphere = new BlockSphere(canvas)
+const canvas = document.getElementById("renderer")
+const sphere = new BlochSphere(canvas)
 
 function loop(){
-    sphere.renderer()
+    sphere.render()
     requestAnimationFrame(loop)
 }
 
