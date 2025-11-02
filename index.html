@@ -1,17 +1,92 @@
 <!doctype html>
 <html lang="th">
-  <head>
-    <meta charset="utf-8" />
-    <title>Bloch Sphere (Three.js)</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <style>
-      html, body { height: 100%; margin: 0; background: #0b1020; }
-      #wrap { height: 100%; display: grid; place-items: center; padding: 12px; }
-      canvas { width: min(92vmin, 900px); height: min(92vmin, 900px); display: block; }
-    </style>
-  </head>
-  <body>
-    <div id="wrap"><canvas id="bloch"></canvas></div>
-    <script type="module" src="/src/app/index.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>Quantum Learning Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./src/app/style.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1>Quantum Learning</h1>
+      <nav class="nav">
+        <button class="nav-item active" data-topic="gate">Quantum Gates</button>
+        <button class="nav-item" data-topic="bloch">Bloch Sphere</button>
+        <button class="nav-item" data-topic="rsa">Quantum Decryption (RSA)</button>
+      </nav>
+      <p class="tip">ความคืบหน้าของคุณจะถูกบันทึกอัตโนมัติในเบราว์เซอร์</p>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <section id="gate" class="panel show">
+        <h2>Quantum Gates (X, Y, Z)</h2>
+        <div class="progress"><span style="width:0%"></span></div>
+        <p>เกตควอนตัมเป็นการหมุนเวกเตอร์สถานะรอบแกน X/Y/Z บน Bloch Sphere เพื่อเปลี่ยนสถานะของคิวบิต</p>
+        <ul>
+          <li><b>X gate</b>: พลิก |0⟩ ↔ |1⟩</li>
+          <li><b>Y gate</b>: หมุนรอบแกน Y</li>
+          <li><b>Z gate</b>: เปลี่ยนเฟสรอบแกน Z</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="./src/app/BlochSphere.html">ทดลองจำลอง</a>
+          <button class="btn outline" data-mark="gate">เรียนจบหัวข้อนี้</button>
+        </div>
+      </section>
+
+      <section id="bloch" class="panel">
+        <h2>Bloch Sphere</h2>
+        <div class="progress"><span style="width:0%"></span></div>
+        <p>Bloch Sphere แสดงสถานะของคิวบิตในรูปทรงกลม ทำให้เห็น superposition และการหมุนสถานะได้อย่างชัดเจน</p>
+        <div class="actions">
+          <a class="btn primary" href="./src/app/BlochSphere.html">ดูการจำลอง</a>
+          <button class="btn outline" data-mark="bloch">เรียนจบหัวข้อนี้</button>
+        </div>
+      </section>
+
+      <section id="rsa" class="panel">
+        <h2>Quantum Decryption (RSA)</h2>
+        <div class="progress"><span style="width:0%"></span></div>
+        <p>ศึกษา Shor’s Algorithm ที่สามารถแยกตัวประกอบจำนวนเต็มได้เร็วกว่า RSA ทำให้เกิดยุคใหม่ของ Post-Quantum Cryptography</p>
+        <div class="actions">
+          <button class="btn outline" data-mark="rsa">เรียนจบหัวข้อนี้</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const topics = ["gate","bloch","rsa"];
+    const progress = JSON.parse(localStorage.getItem("quantum-progress")||"{}");
+
+    function show(topic){
+      document.querySelectorAll(".nav-item").forEach(btn =>
+        btn.classList.toggle("active", btn.dataset.topic === topic)
+      );
+      document.querySelectorAll(".panel").forEach(p =>
+        p.classList.toggle("show", p.id === topic)
+      );
+      const bar = document.querySelector(`#${topic} .progress span`);
+      if(bar) bar.style.width = (progress[topic]||0) + "%";
+    }
+
+    document.querySelectorAll(".nav-item").forEach(btn=>{
+      btn.addEventListener("click", ()=> show(btn.dataset.topic));
+    });
+
+    document.querySelectorAll("[data-mark]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const t = btn.dataset.mark;
+        progress[t] = 100;
+        localStorage.setItem("quantum-progress", JSON.stringify(progress));
+        const bar = document.querySelector(`#${t} .progress span`);
+        if(bar) bar.style.width = "100%";
+      });
+    });
+
+    show("gate");
+  </script>
+</body>
 </html>
