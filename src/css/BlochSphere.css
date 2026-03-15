@@ -1,0 +1,154 @@
+:root{
+  --bg:#f8fafc;
+  --panel:#ffffff;
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#2563eb;
+  --accent-hover:#1d4ed8;
+  --shadow:0 8px 24px rgba(15,23,42,.08);
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  height:100%;
+  font-family:"Inter",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  height:100vh;
+}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+}
+
+/* Sidebar */
+.sidebar{
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:24px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  box-shadow:var(--shadow);
+}
+.sidebar h1{
+  font-size:1.3rem;
+  margin:0;
+  color:var(--accent);
+  font-weight:900;
+}
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.nav-item{
+  appearance:none;
+  background:none;
+  border:none;
+  text-align:left;
+  padding:12px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  color:#475569;
+  transition:all .2s ease;
+}
+.nav-item:hover{
+  background:#f1f5f9;
+}
+.nav-item.active{
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+}
+.tip{
+  margin-top:auto;
+  font-size:.85rem;
+  color:var(--muted);
+}
+
+/* Content */
+.content{
+  padding:28px;
+  overflow:auto;
+  background:var(--bg);
+}
+.panel{
+  display:none;
+  max-width:820px;
+  margin:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:28px 24px;
+  animation:fade .25s ease;
+}
+.panel.show{display:block}
+@keyframes fade{from{opacity:.5;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h2{
+  margin-top:0;
+  font-size:1.5rem;
+  color:#1e293b;
+}
+p{
+  line-height:1.7;
+  color:#334155;
+}
+ul{margin-left:22px;color:#334155}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+/* Buttons */
+.btn{
+  appearance:none;
+  border:1px solid var(--border);
+  padding:10px 14px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  background:#fff;
+  color:var(--text);
+  transition:all .2s ease;
+}
+.btn:hover{
+  background:#f1f5f9;
+}
+.btn.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(37,99,235,.25);
+}
+.btn.primary:hover{
+  background:var(--accent-hover);
+}
+
+/* Progress bar */
+.progress{
+  height:8px;
+  background:#f1f5f9;
+  border-radius:999px;
+  margin:12px 0 20px;
+  overflow:hidden;
+}
+.progress span{
+  display:block;
+  height:100%;
+  background:var(--accent);
+  width:0%;
+  transition:width .3s ease;
+}

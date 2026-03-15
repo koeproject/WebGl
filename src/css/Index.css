@@ -1,0 +1,67 @@
+/* =========================================
+   Base Resets
+========================================= */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    font-family: 'Google Sans', sans-serif; 
+}
+
+/* =========================================
+   Keyframe Animations
+   (สำหรับ SVG Circuit และการเปิดตัวของข้อความ)
+========================================= */
+
+/* ทำให้วัตถุลอยขึ้น-ลงเบาๆ */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* สร้างวงแหวนกระเพื่อมรอบๆ วัตถุ */
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.2; }
+    100% { transform: scale(0.8); opacity: 0.6; }
+}
+
+/* ทำให้เส้นประดูเหมือนกำลังไหลไปข้างหน้า */
+@keyframes dash-flow {
+    to { stroke-dashoffset: -20; }
+}
+
+/* หมุนวัตถุ (Qubit) 360 องศา */
+@keyframes qubit-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* แอนิเมชันการเต้นของ Gate (ขยายขนาดและเปลี่ยน Opacity) */
+@keyframes gate-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* แอนิเมชันค่อยๆ เฟดขึ้นมาด้านบนสำหรับเนื้อหา (Text/Cards) */
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   Animation Utility Classes
+========================================= */
+.anim-fade-up { animation: fade-up 0.7s ease both; }
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.35s; }
+.anim-delay-4 { animation-delay: 0.5s; }
+.anim-delay-5 { animation-delay: 0.65s; }

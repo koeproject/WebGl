@@ -48,3 +48,113 @@ export function makeGrid({
   }
   return g;
 }
+
+// create sprite text from canvas
+function makeTextSprite(
+  text,
+  {
+    font = "10px Inter, system-ui, sans-serif",
+    color = "#e5e7eb",
+    padding = 6,
+    scale = 0.18,
+  } = {}
+) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.font = font;
+
+  const w = Math.ceil(ctx.measureText(text).width + padding * 2);
+  const h = Math.ceil(parseInt(font, 10) + padding * 2);
+  canvas.width = w * 2;
+  canvas.height = h * 2;
+
+  const ctx2 = canvas.getContext("2d");
+  ctx2.font = font;
+  ctx2.scale(2, 2);
+  ctx2.fillStyle = color;
+  ctx2.textBaseline = "middle";
+  ctx2.fillText(text, padding, h / 2);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  const sprite = new THREE.Sprite(
+    new THREE.SpriteMaterial({ map: tex, transparent: true })
+  );
+  sprite.scale.set(scale * (w / h), scale, 1);
+  sprite.material.depthTest = false;
+
+  return sprite;
+}
+
+export function makeAxisLabels({ radius = 1.1, color = "#334155" } = {}) {
+  const g = new THREE.Group();
+  const add = (t, x, y, z) => {
+    const s = makeTextSprite(t, { color });
+    s.position.set(x, y, z);
+    g.add(s);
+  };
+  // Z
+  add("|0⟩", 0, +radius, 0);
+  add("|1⟩", 0, -radius, 0);
+  // X
+  add("|+⟩", +radius, 0, 0);
+  add("|−⟩", -radius, 0, 0);
+  // Y
+  add("|i⟩", 0, 0, +radius);
+  add("|−i⟩", 0, 0, -radius);
+  return g;
+}
+
+export class StateLine {
+  constructor({
+    length = 1.0,
+    xColor = 0x93c5fd,
+    yColor = 0xfda4af,
+    zColor = 0xbbf7d0,
+  } = {}) {
+    this.group = new THREE.Group();
+    this.makeLines(length, xColor, yColor, zColor);
+  }
+
+  makeLines(length, xColor, yColor, zColor) {
+    const makeMat = (color) =>
+      new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.95,
+        depthTest: false,
+      });
+
+    const makeLine = (a, b, mat) => {
+      const geom = new THREE.BufferGeometry().setFromPoints([a, b]);
+      return new THREE.Line(geom, mat);
+    };
+
+    const matX = makeMat(xColor);
+    const matY = makeMat(yColor);
+    const matZ = makeMat(zColor);
+
+    const refX = makeLine(
+      new THREE.Vector3(+length, 0, 0),
+      new THREE.Vector3(-length, 0, 0),
+      matX
+    );
+
+    const refY = makeLine(
+      new THREE.Vector3(0, 0, +length),
+      new THREE.Vector3(0, 0, -length),
+      matY
+    );
+
+    const refZ = makeLine(
+      new THREE.Vector3(0, +length, 0),
+      new THREE.Vector3(0, -length, 0),
+      matZ
+    );
+
+    this.group.add(refX, refY, refZ);
+  }
+
+  getObject3D() {
+    return this.group;
+  }
+}

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="th" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn - Quantum Learn</title>
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./../css/LearnPage.css">
+
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto flex">
+
+    <aside id="sidebar" class="w-64 border-r flex flex-col">
+      <div class="p-6 border-b sidebar-header">
+        <a href="./../index.html" class="flex items-center gap-2 no-underline text-color-main">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="#3b82f6" stroke-width="2" fill="none" />
+            <circle cx="14" cy="14" r="4" fill="#3b82f6" />
+            <circle cx="14" cy="4" r="2.5" fill="#60a5fa" />
+            <circle cx="14" cy="24" r="2.5" fill="#60a5fa" />
+            <line x1="14" y1="6" x2="14" y2="10" stroke="#93c5fd" stroke-width="1.5" />
+            <line x1="14" y1="18" x2="14" y2="22" stroke="#93c5fd" stroke-width="1.5" />
+          </svg>
+          <span class="text-lg font-bold tracking-tight font-['Space_Mono']">Learn</span>
+        </a>
+      </div>
+
+      <!-- ---------------------------------------------------------------------------------------- -->
+      <nav class="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2">
+        <div class="text-xs font-semibold mb-3 px-2 text-color-muted">Quantum Basics</div>
+
+        <button class="nav-item-active nav-btn" onclick="loadLesson(0)">
+          <i data-lucide="computer" class="nav-icon"></i> <span>Quantum Computing</span>
+        </button>
+        <button class="nav-item-active nav-btn" onclick="loadLesson(1)">
+          <i data-lucide="lightbulb" class="nav-icon"></i> <span>Qubit</span>
+        </button>
+        <button class="nav-btn" onclick="loadLesson(2)">
+          <i data-lucide="zap" class="nav-icon"></i> <span>Superposition</span>
+        </button>
+        <button class="nav-btn" onclick="loadLesson(3)">
+          <i data-lucide="link-2" class="nav-icon"></i> <span>Entanglement</span>
+        </button>
+
+        <div class="text-xs font-semibold mt-4 mb-3 px-2 text-color-muted">Quantum Gates</div>
+
+        <button class="nav-btn" onclick="loadLesson(4)">
+          <i data-lucide="square" class="nav-icon"></i> <span>Pauli Gates</span>
+        </button>
+        <button class="nav-btn" onclick="loadLesson(5)">
+          <i data-lucide="rotate-ccw" class="nav-icon"></i> <span>Rotation Gates</span>
+        </button>
+      </nav>
+    </aside>
+    <!-- ---------------------------------------------------------------------------------------- -->
+
+    <main class="flex-1 flex flex-col overflow-auto">
+
+      <header class="w-full border-b sticky top-0 z-20 header-bg">
+        <div class="px-8 py-4 flex items-center justify-between">
+          <div>
+            <h1 id="lesson-title" class="text-2xl font-bold">Understanding Qubits</h1>
+            <p class="text-xs mt-1 text-color-muted">Quantum Basics • Lesson</p>
+          </div>
+          <button id="mobile-toggle" class="md:hidden p-2 rounded-lg mobile-btn"
+            onclick="document.getElementById('sidebar').classList.toggle('hidden')">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- ---------------------------------------------------------------------------------------- -->
+
+      <div class="flex-1 overflow-auto">
+        <div class="max-w-4xl mx-auto px-8 py-8">
+
+          <section class="mb-12">
+            <h2 id="lesson-header" class="text-lg font-semibold mb-4 text-color-main">What is a Qubit?</h2>
+            <p id="lesson-explanation" class="text-base leading-relaxed text-color-muted">
+              A qubit (quantum bit) is the fundamental unit of quantum information...
+            </p>
+          </section>
+
+          <div id="dynamic-workspace" class="mb-12">
+          </div>
+
+          <div class="flex justify-end mb-12">
+            <button id="next-btn" onclick="goToNextLesson()"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold btn-primary">
+              <span>Next Lesson</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ---------------------------------------------------------------------------------------- -->
+
+    </main>
+  </div>
+
+  <script src="./../js/LearnPage.js"></script>
+</body>
+
+</html>

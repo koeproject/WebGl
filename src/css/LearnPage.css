@@ -1,0 +1,169 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Google Sans', sans-serif;
+  background: #ffffff;
+  color: #1e293b;
+}
+
+/* Animations */
+@keyframes rotate-3d {
+  0% {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Navigation Menu */
+.nav-btn {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #64748b;
+}
+
+.nav-item-active {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.nav-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: text-bottom;
+}
+
+/* Specific Component Styles */
+.bloch-sphere {
+  perspective: 1000px;
+}
+
+.sphere-text {
+  font-size: 12px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+}
+
+.logo-text {
+  font-family: 'Space Mono', monospace;
+  color: #1e293b;
+}
+
+.custom-slider {
+  background: #e0e7ff;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.9);
+}
+
+/* Containers (Replaces inline repetitive styles) */
+.sidebar-header,
+.header-bg {
+  border-color: #e8eef6;
+}
+
+.visual-container,
+.interactive-container {
+  background: #f8fbff;
+  border: 1.5px solid #e8eef6;
+}
+
+.visual-container {
+  min-height: 320px;
+}
+
+.state-box {
+  background: #ffffff;
+  border: 1.5px solid #e8eef6;
+}
+
+/* Text Colors */
+.text-color-main {
+  color: #0f172a;
+}
+
+.text-color-muted {
+  color: #5d6672;
+}
+
+.prob-text {
+  color: #3b82f6;
+}
+
+.mobile-btn {
+  color: #64748b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
